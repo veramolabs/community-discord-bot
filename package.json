@@ -7,15 +7,13 @@
     "start": "ts-node src/index",
     "register": "ts-node src/register-commands"
   },
-  "devDependencies": {
-    "@types/node": "^18.7.1",
-    "@veramo/credential-w3c": "^3.1.6-next.164",
-    "@veramo/did-manager": "^3.1.6-next.164",
-    "@veramo/key-manager": "^3.1.6-next.164"
-  },
   "dependencies": {
     "@discordjs/rest": "^1.0.1",
+    "@types/node": "^18.7.1",
     "@veramo/core": "^3.1.6-next.164",
+    "@veramo/credential-w3c": "^3.1.6-next.164",
+    "@veramo/did-manager": "^3.1.6-next.164",
+    "@veramo/key-manager": "^3.1.6-next.164",
     "@veramo/remote-client": "^3.1.6-next.164",
     "discord-api-types": "^0.37.2",
     "discord.js": "^14.2.0",
