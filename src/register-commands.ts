@@ -11,7 +11,11 @@ if (!process.env.DISCORD_TOKEN) throw Error('DISCORD_TOKEN is missing')
 if (!process.env.DISCORD_APPLICATION_ID) throw Error('DISCORD_APPLICATION_ID is missing')
 if (!process.env.DISCORD_GUILD_ID) throw Error('DISCORD_GUILD_ID is missing')
 
-const commands = [exportRolesCommand.toJSON(), kudosCommand.toJSON()]
+const commands = [
+  exportRolesCommand.toJSON(),
+  kudosCommand.toJSON(),
+  credentialsCommand.toJSON(),
+]
 
 const rest = new REST({ version: '9' }).setToken(process.env.DISCORD_TOKEN)
 
