@@ -15,7 +15,10 @@ const commands = [exportRolesCommand.toJSON(), kudosCommand.toJSON()]
 
 const rest = new REST({ version: '9' }).setToken(process.env.DISCORD_TOKEN)
 
-const main = async () => {
+export const registerCommands = async () => {
+  
+  console.log('Registering commands...')
+  
   await rest.put(
     // Routes.applicationCommands(
     //   process.env.DISCORD_APPLICATION_ID as string
@@ -29,5 +32,3 @@ const main = async () => {
 
   console.log('Successfully registered application commands.')
 }
-
-main().catch(console.error)
