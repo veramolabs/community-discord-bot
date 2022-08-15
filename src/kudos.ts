@@ -70,7 +70,7 @@ export async function kudos(interaction: Interaction) {
     }
 
     const vc = await agent.createVerifiableCredential({
-      save: false,
+      save: true,
       proofFormat: 'jwt',
       credential: {
         id: interaction.id,
