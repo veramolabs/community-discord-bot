@@ -37,13 +37,13 @@ export async function credentials(interaction: Interaction) {
 
   if (embeds.length > 0) {
     await interaction.reply({
-      content: holder.did,
+      content: "Issued credentials",
       embeds,
       ephemeral: true
     })
   } else {
     await interaction.reply({
-      content: holder.did + "\n\nThere are no credentials issued to this user",
+      content: "There are no credentials issued to this user",
       ephemeral: true,
     })
   }
