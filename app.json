@@ -1,0 +1,32 @@
+{
+    "name": "Community Discord Bot",
+    "description": "Veramo community Discord bot",
+    "repository": "https://github.com/veramolabs/community-discord-bot",
+    "keywords": [
+      "node",
+      "veramo",
+      "identity",
+      "verifiable-credentials",
+      "discord"
+    ],
+    "env": {
+      "DISCORD_TOKEN": {
+        "description": "Discord bot token"
+      },
+      "DISCORD_APPLICATION_ID": {
+        "description": "Discord application ID"
+      },
+      "DISCORD_GUILD_ID": {
+        "description": "Community server ID. This will be used to register slash commands in this specific server"
+      },
+      "AGENT_URL": {
+        "description": "Veramo Agent URL"
+      },
+      "AGENT_API_KEY": {
+        "description": "Veramo Agent API key"
+      },
+      "DISCORD_BOT_DID_ALIAS": {
+        "description": "Alias for the community DID. Also used as a prefix for custodial DIDs (community.veramo.io)"
+      }
+    }
+  }
