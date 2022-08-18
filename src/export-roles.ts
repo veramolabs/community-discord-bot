@@ -7,7 +7,7 @@ export const exportRolesCommand = new SlashCommandBuilder()
   .setDescription('Issues role credentials')
 
 export async function exportRoles(interaction: Interaction) {
-  if (!interaction.isCommand()) return
+  if (!interaction.isChatInputCommand()) return
   if (!interaction.inGuild()) return
   if (interaction.commandName !== exportRolesCommand.name) return
 

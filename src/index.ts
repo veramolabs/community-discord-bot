@@ -9,6 +9,7 @@ import { registerCommands } from './register-commands'
 import { exportRoles } from './export-roles'
 import { kudos } from './kudos'
 import { credentials } from './credentials'
+import { attendance } from './attendance'
 
 // https://stackoverflow.com/a/67799671/10571155
 const client = new Client({
@@ -18,6 +19,7 @@ const client = new Client({
 client.on('interactionCreate', exportRoles)
 client.on('interactionCreate', kudos)
 client.on('interactionCreate', credentials)
+client.on('interactionCreate', attendance)
 
 client.once('ready', async () => {
   console.log('Ready!')

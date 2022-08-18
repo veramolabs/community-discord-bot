@@ -6,6 +6,7 @@ import { Routes } from 'discord-api-types/v9'
 import { exportRolesCommand } from './export-roles'
 import { kudosCommand } from './kudos'
 import { credentialsCommand } from './credentials'
+import { attendanceCommand } from './attendance'
 
 if (!process.env.DISCORD_TOKEN) throw Error('DISCORD_TOKEN is missing')
 if (!process.env.DISCORD_APPLICATION_ID) throw Error('DISCORD_APPLICATION_ID is missing')
@@ -15,6 +16,7 @@ const commands = [
   exportRolesCommand.toJSON(),
   kudosCommand.toJSON(),
   credentialsCommand.toJSON(),
+  attendanceCommand.toJSON(),
 ]
 
 const rest = new REST({ version: '9' }).setToken(process.env.DISCORD_TOKEN)

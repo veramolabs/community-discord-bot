@@ -12,7 +12,7 @@ export const credentialsCommand = new SlashCommandBuilder()
   )
 
 export async function credentials(interaction: Interaction) {
-  if (!interaction.isCommand()) return
+  if (!interaction.isChatInputCommand()) return
   if (!interaction.inGuild()) return
   if (interaction.commandName !== credentialsCommand.name) return
 

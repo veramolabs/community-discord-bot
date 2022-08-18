@@ -18,7 +18,7 @@ export const kudosCommand = new SlashCommandBuilder()
 
 export async function kudos(interaction: Interaction) {
 
-    if (!interaction.isCommand()) return
+    if (!interaction.isChatInputCommand()) return
     if (!interaction.inGuild()) return
     if (interaction.commandName !== kudosCommand.name) return
   
