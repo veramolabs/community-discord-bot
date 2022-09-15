@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, Interaction } from 'discord.js'
+import { SlashCommandBuilder, Interaction, hyperlink } from 'discord.js'
 import { agent } from './agent'
 import { getMessageEmbedFromVC } from './embeds'
 
@@ -34,16 +34,17 @@ export async function credentials(interaction: Interaction) {
   const embeds = credentials.slice(0,5).map(({ verifiableCredential }) =>
     getMessageEmbedFromVC(verifiableCredential, true),
   )
+  const profile = hyperlink('Profile', 'https://' + process.env.DISCORD_BOT_DID_ALIAS + '/identifiers/' + holder.did)
 
   if (embeds.length > 0) {
     await interaction.reply({
-      content: "Issued credentials",
+      content: "Issued credentials. " + profile,
       embeds,
       ephemeral: true
     })
   } else {
     await interaction.reply({
-      content: "There are no credentials issued to this user",
+      content: "There are no credentials issued to this user. " + profile,
       ephemeral: true,
     })
   }
