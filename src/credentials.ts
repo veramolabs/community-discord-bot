@@ -34,7 +34,7 @@ export async function credentials(interaction: Interaction) {
   const embeds = credentials.slice(0,5).map(({ verifiableCredential }) =>
     getMessageEmbedFromVC(verifiableCredential, true),
   )
-  const profile = hyperlink('Profile', 'https://' + process.env.DISCORD_BOT_DID_ALIAS + '/identifiers/' + holder.did)
+  const profile = hyperlink('Profile', 'https://' + process.env.DISCORD_BOT_DID_ALIAS + '/identifier/' + holder.did)
 
   if (embeds.length > 0) {
     await interaction.reply({
