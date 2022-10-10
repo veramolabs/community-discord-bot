@@ -51,6 +51,7 @@ export async function kudos(interaction: Interaction) {
       name: recipient.username,
       kudos: kudos,
       author: {
+        id: user.id,
         name: user.username,
         avatar: user.avatarURL({ extension: 'png' }) || '',
       },
