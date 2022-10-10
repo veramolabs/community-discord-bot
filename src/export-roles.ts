@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders'
 import { Interaction, AttachmentBuilder, GuildMemberRoleManager } from 'discord.js'
 import { agent } from './agent'
+import { discordUserIdToUrl } from './utils'
 
 export const exportRolesCommand = new SlashCommandBuilder()
   .setName('export-roles')
@@ -16,10 +17,7 @@ export async function exportRoles(interaction: Interaction) {
     provider: 'did:web'
   })
 
-  const subject = await agent.didManagerGetOrCreate({
-    alias: process.env.DISCORD_BOT_DID_ALIAS + interaction.member.user.id,
-    provider: 'did:web'
-  })
+  const subject = discordUserIdToUrl(interaction.member.user.id)
 
   const roles = interaction.member.roles as GuildMemberRoleManager
 
@@ -41,7 +39,7 @@ export async function exportRoles(interaction: Interaction) {
               name: guild.name,
               avatar: guild.iconURL({ extension: 'png' }) || '',
             },
-            id: subject.did,
+            id: subject,
           },
           issuer: { id: issuer.did },
           issuanceDate: new Date().toISOString(),

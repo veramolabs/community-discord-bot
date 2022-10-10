@@ -1,6 +1,7 @@
 import { SlashCommandBuilder, Interaction, Guild, TextChannel, AttachmentBuilder} from 'discord.js'
 import { getMessageEmbedFromVC } from './embeds'
 import { agent } from './agent'
+import { discordUserIdToUrl } from './utils'
 
 if (!process.env.DISCORD_BOT_DID_ALIAS) throw Error('DISCORD_BOT_DID_ALIAS is missing')
 
@@ -39,14 +40,12 @@ export async function kudos(interaction: Interaction) {
     }
 
     const issuer = await agent.didManagerGetOrCreate({
-      alias: process.env.DISCORD_BOT_DID_ALIAS + ':discord:' + user.id,
+      alias: process.env.DISCORD_BOT_DID_ALIAS as string,
       provider: 'did:web'
     })
 
-    const holder = await agent.didManagerGetOrCreate({
-      alias: process.env.DISCORD_BOT_DID_ALIAS + ':discord:' + recipient.id,
-      provider: 'did:web'
-    })
+    const holder = discordUserIdToUrl(recipient.id)
+
 
     const credentialSubject = {
       name: recipient.username,
@@ -66,7 +65,7 @@ export async function kudos(interaction: Interaction) {
         avatar: guild.iconURL({ extension: 'png' }) || undefined,
       },
       avatar: recipient.avatarURL({ extension: 'png' }) || '',
-      id: holder.did,
+      id: holder,
     }
 
     const vc = await agent.createVerifiableCredential({
