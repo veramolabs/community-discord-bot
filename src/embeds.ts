@@ -21,8 +21,8 @@ export const getKudosEmbedFromVC = (vc: any, details = false): EmbedBuilder => {
   const embed = new EmbedBuilder()
     .setColor('#73C394')
     .setAuthor({
-      name: vc.credentialSubject.author.name,
-      iconURL: vc.credentialSubject.author.avatar
+      name: vc.credentialSubject.authorName,
+      iconURL: vc.credentialSubject.authorAvatar
     })
     .setTitle('🏆 Kudos to ' + vc.credentialSubject.name)
     .setDescription(vc.credentialSubject.kudos)
@@ -31,8 +31,8 @@ export const getKudosEmbedFromVC = (vc: any, details = false): EmbedBuilder => {
   if (details) {
     embed
       .setFooter({
-        text: `${vc.credentialSubject.guild.name} #${vc.credentialSubject.channel.name}`,
-        iconURL: vc.credentialSubject.guild.avatar
+        text: `${vc.credentialSubject.guildName} #${vc.credentialSubject.channelName}`,
+        iconURL: vc.credentialSubject.guildAvatar
       })
       .setTimestamp(new Date(vc.issuanceDate))
   }
@@ -44,20 +44,20 @@ export const getAttendanceEmbedFromVC = (vc: any, details = false): EmbedBuilder
   const embed = new EmbedBuilder()
     .setColor('#73C394')
     .setAuthor({
-      name: vc.credentialSubject.author.name,
-      iconURL: vc.credentialSubject.author.avatar
+      name: vc.credentialSubject.authorName,
+      iconURL: vc.credentialSubject.authorAvatar
     })
-    .setTitle(vc.credentialSubject.event.name)
+    .setTitle(vc.credentialSubject.eventName)
     .setDescription(vc.credentialSubject.name)
     .setThumbnail(vc.credentialSubject.avatar)
-    .setImage(vc.credentialSubject.event.picture)
+    .setImage(vc.credentialSubject.eventPicture)
 
 
   if (details) {
     embed
     .setFooter({
-      text: `${vc.credentialSubject.guild.name} #${vc.credentialSubject.channel.name}`,
-      iconURL: vc.credentialSubject.guild.avatar
+      text: `${vc.credentialSubject.guildName} #${vc.credentialSubject.channelName}`,
+      iconURL: vc.credentialSubject.guildAvatar
     })
     .setTimestamp(new Date(vc.issuanceDate))
   }
@@ -69,8 +69,8 @@ export const getAwardEmbedFromVC = (vc: any, details = false): EmbedBuilder => {
   const embed = new EmbedBuilder()
     .setColor('#73C394')
     .setAuthor({
-      name: vc.credentialSubject.author.name,
-      iconURL: vc.credentialSubject.author.avatar
+      name: vc.credentialSubject.authorName,
+      iconURL: vc.credentialSubject.authorAvatar
     })
     .setTitle(`Award: ${vc.credentialSubject.emoji} ${vc.credentialSubject.award}`)
     .setDescription(vc.credentialSubject.name)
@@ -79,8 +79,8 @@ export const getAwardEmbedFromVC = (vc: any, details = false): EmbedBuilder => {
   if (details) {
     embed
     .setFooter({
-      text: `${vc.credentialSubject.guild.name} #${vc.credentialSubject.channel.name}`,
-      iconURL: vc.credentialSubject.guild.avatar
+      text: `${vc.credentialSubject.guildName} #${vc.credentialSubject.channelName}`,
+      iconURL: vc.credentialSubject.guildAvatar
     })
     .setTimestamp(new Date(vc.issuanceDate))
   }
@@ -96,8 +96,8 @@ export const getRoleEmbedFromVC = (vc: any, details = false): EmbedBuilder => {
   if (details) {
     embed
     .setFooter({
-      text: `${vc.credentialSubject.guild.name} #${vc.credentialSubject.channel.name}`,
-      iconURL: vc.credentialSubject.guild.avatar
+      text: `${vc.credentialSubject.guildName} #${vc.credentialSubject.channelName}`,
+      iconURL: vc.credentialSubject.guildAvatar
     })
     .setTimestamp(new Date(vc.issuanceDate))
   }

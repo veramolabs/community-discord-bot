@@ -44,29 +44,20 @@ export async function kudos(interaction: Interaction) {
       provider: 'did:web'
     })
 
-    const holder = discordUserIdToUrl(recipient.id)
-
 
     const credentialSubject = {
+      id: discordUserIdToUrl(recipient.id),
       name: recipient.username,
-      kudos: kudos,
-      author: {
-        id: user.id,
-        name: user.username,
-        avatar: user.avatarURL({ extension: 'png' }) || '',
-      },
-      channel: {
-        id: channel.id,
-        name: channel.name,
-        nsfw: channel.nsfw,
-      },
-      guild: {
-        id: guild.id,
-        name: guild.name,
-        avatar: guild.iconURL({ extension: 'png' }) || undefined,
-      },
       avatar: recipient.avatarURL({ extension: 'png' }) || '',
-      id: holder,
+      kudos: kudos,
+      authorId: discordUserIdToUrl(user.id),
+      authorName: user.username,
+      authorAvatar: user.avatarURL({ extension: 'png' }) || '',
+      channelId: channel.id,
+      channelName: channel.name,
+      guildId: guild.id,
+      guildName: guild.name,
+      guildAvatar: guild.iconURL({ extension: 'png' }) || undefined,
     }
 
     const vc = await agent.createVerifiableCredential({

@@ -46,30 +46,21 @@ export async function attendance(interaction: Interaction) {
       alias: process.env.DISCORD_BOT_DID_ALIAS as string,
       provider: 'did:web',
     })
-    
-    const holder = discordUserIdToUrl(member.user.id)
 
     const credentialSubject = {
-      id: holder,
-      channel: {
-        id: channel.id,
-        name: channel.name,
-      },
-      guild: {
-        id: guild.id,
-        name: guild.name,
-        avatar: guild.iconURL({ extension: 'png' }) || undefined,
-      },
-      author: {
-        name: user.username,
-        avatar: user.avatarURL(),
-      },
-      event: {
-        name: event,
-        picture,
-      },
+      id: discordUserIdToUrl(member.user.id),
       name: member.user.username,
       avatar: member.user.avatarURL({ extension: 'png' }),
+      channelId: channel.id,
+      channelName: channel.name,
+      guildId: guild.id,
+      guildName: guild.name,
+      guildAvatar: guild.iconURL({ extension: 'png' }) || undefined,
+      authorId: discordUserIdToUrl(user.id),
+      authorName: user.username,
+      authorAvatar: user.avatarURL(),
+      eventName: event,
+      eventPicture: picture,
     }
 
     const vc = await agent.createVerifiableCredential({

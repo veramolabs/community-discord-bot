@@ -17,8 +17,6 @@ export async function exportRoles(interaction: Interaction) {
     provider: 'did:web'
   })
 
-  const subject = discordUserIdToUrl(interaction.member.user.id)
-
   const roles = interaction.member.roles as GuildMemberRoleManager
 
   const promises = roles.cache
@@ -32,14 +30,12 @@ export async function exportRoles(interaction: Interaction) {
         credential: {
           id: interaction.id,
           credentialSubject: {
+            id: discordUserIdToUrl(interaction.member.user.id),
             name,
             color,
-            guild: {
-              id: guild.id,
-              name: guild.name,
-              avatar: guild.iconURL({ extension: 'png' }) || '',
-            },
-            id: subject,
+            guildId: guild.id,
+            guildName: guild.name,
+            guildAvatar: guild.iconURL({ extension: 'png' }) || '',
           },
           issuer: { id: issuer.did },
           issuanceDate: new Date().toISOString(),
