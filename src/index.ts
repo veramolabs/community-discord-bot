@@ -13,7 +13,11 @@ import { attendance } from './attendance'
 
 // https://stackoverflow.com/a/67799671/10571155
 const client = new Client({
-  intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers],
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.GuildVoiceStates
+  ],
 })
 
 client.on('interactionCreate', exportRoles)
