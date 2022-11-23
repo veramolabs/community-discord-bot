@@ -22,17 +22,17 @@ export const getKudosEmbedFromVC = (vc: any, details = false): EmbedBuilder => {
     .setColor('#73C394')
     .setAuthor({
       name: vc.credentialSubject.authorName,
-      iconURL: vc.credentialSubject.authorAvatar
+      iconURL: vc.credentialSubject.authorAvatar !== '' ? vc.credentialSubject.authorAvatar : undefined
     })
     .setTitle('🏆 Kudos to ' + vc.credentialSubject.name)
     .setDescription(vc.credentialSubject.kudos)
-    .setThumbnail(vc.credentialSubject.avatar)
+    .setThumbnail(vc.credentialSubject.avatar !== '' ? vc.credentialSubject.avatar : null)
 
   if (details) {
     embed
       .setFooter({
         text: `${vc.credentialSubject.guildName} #${vc.credentialSubject.channelName}`,
-        iconURL: vc.credentialSubject.guildAvatar
+        iconURL: vc.credentialSubject.guildAvatar !== '' ? vc.credentialSubject.guildAvatar : undefined
       })
       .setTimestamp(new Date(vc.issuanceDate))
   }
@@ -45,11 +45,11 @@ export const getAttendanceEmbedFromVC = (vc: any, details = false): EmbedBuilder
     .setColor('#73C394')
     .setAuthor({
       name: vc.credentialSubject.authorName,
-      iconURL: vc.credentialSubject.authorAvatar
+      iconURL: vc.credentialSubject.authorAvatar !== '' ? vc.credentialSubject.authorAvatar : undefined
     })
     .setTitle(vc.credentialSubject.eventName)
     .setDescription(vc.credentialSubject.name)
-    .setThumbnail(vc.credentialSubject.avatar)
+    .setThumbnail(vc.credentialSubject.avatar !== '' ? vc.credentialSubject.avatar : null)
     .setImage(vc.credentialSubject.eventPicture)
 
 
@@ -57,7 +57,7 @@ export const getAttendanceEmbedFromVC = (vc: any, details = false): EmbedBuilder
     embed
     .setFooter({
       text: `${vc.credentialSubject.guildName} #${vc.credentialSubject.channelName}`,
-      iconURL: vc.credentialSubject.guildAvatar
+      iconURL: vc.credentialSubject.guildAvatar !== '' ? vc.credentialSubject.guildAvatar : undefined
     })
     .setTimestamp(new Date(vc.issuanceDate))
   }
@@ -97,7 +97,7 @@ export const getRoleEmbedFromVC = (vc: any, details = false): EmbedBuilder => {
     embed
     .setFooter({
       text: `${vc.credentialSubject.guildName} #${vc.credentialSubject.channelName}`,
-      iconURL: vc.credentialSubject.guildAvatar
+      iconURL: vc.credentialSubject.guildAvatar !== '' ? vc.credentialSubject.guildAvatar : undefined
     })
     .setTimestamp(new Date(vc.issuanceDate))
   }
