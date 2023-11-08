@@ -31,7 +31,6 @@ client.on('interactionCreate', credentials)
 client.on('interactionCreate', attendance)
 
 client.on('messageReactionAdd', async (reaction, user) => {
-  console.log('reaction', JSON.stringify(reaction, null, 2))
 	if (reaction.partial) {
 		try {
 			await reaction.fetch()
@@ -40,7 +39,6 @@ client.on('messageReactionAdd', async (reaction, user) => {
 			return
 		}
   }
-  console.log('reaction2', JSON.stringify(reaction, null, 2))
 
   const reactionAuthor = await getIdentity(user as User)
   await createReactionCredential(reaction as MessageReaction, reactionAuthor)

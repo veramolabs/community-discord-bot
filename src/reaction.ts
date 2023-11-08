@@ -11,8 +11,6 @@ export const createReactionCredential = async (reaction: Discord.MessageReaction
     ]
   })
 
-  console.log('kudos credential', JSON.stringify(credentials, null, 2)) 
-
   if (credentials.length < 0) return
 
   const credentialSubject = {
