@@ -91,7 +91,7 @@ export async function kudos(interaction: ChatInputCommandInteraction) {
       //
     }
 
-    interaction.reply({
+    interaction.editReply({
       embeds: [publicEmbed],
     })
   }
