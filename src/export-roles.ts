@@ -22,7 +22,7 @@ export async function exportRoles(interaction: Interaction) {
     provider: 'did:web'
   })
 
-  await updateProfileCredentials(subject.did, interaction.member.user.username, interaction.member.user.avatarURL({ extension: 'png' }) || '')
+  await updateProfileCredentials(subject.did, interaction.member.user.username, interaction.member.user.avatar || '')
 
   const roles = interaction.member.roles as GuildMemberRoleManager
 
