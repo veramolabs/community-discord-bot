@@ -35,7 +35,8 @@ export const getIdentityAndUpdateProfile = async ( userInfo: UserInfo ): Promise
     ],
     order: [
       { column: 'issuanceDate', direction: 'DESC' }
-    ]
+    ],
+    take: 1
   })
 
   if (credentials.length === 0  || (
@@ -48,7 +49,7 @@ export const getIdentityAndUpdateProfile = async ( userInfo: UserInfo ): Promise
       credential: {
         '@context': ['https://www.w3.org/2018/credentials/v1'],
         type: ['VerifiableCredential', 'Profile'],
-        issuer: { id: 'did:web:' + process.env.DISCORD_BOT_DID_ALIAS },
+        issuer: { id: identity.did },
         issuanceDate: new Date().toISOString(),
         credentialSubject: {
           id: identity.did,
