@@ -79,8 +79,8 @@ export async function kudos(interaction: Interaction) {
     const privateEmbed = getMessageEmbedFromVC(vc, true)
 
     try {
-      const file = Buffer.from(vc.proof.jwt)
-      const attachment = new AttachmentBuilder(file, { name: 'verifiable-credential.jwt' })
+      const file = Buffer.from(JSON.stringify(vc))
+      const attachment = new AttachmentBuilder(file, { name: 'verifiable-credential.json' })
 
       await recipient.send({
         content: 'You received kudos',
