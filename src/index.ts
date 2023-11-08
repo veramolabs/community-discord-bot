@@ -37,6 +37,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
 			return
 		}
   }
+  console.log('reaction', JSON.stringify(reaction, null, 2))
 
   const reactionAuthor = await getIdentity(user as User)
   await createReactionCredential(reaction as MessageReaction, reactionAuthor)
