@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, Interaction, Guild, TextChannel, AttachmentBuilder} from 'discord.js'
+import { SlashCommandBuilder, Interaction, Guild, TextChannel, AttachmentBuilder, ChatInputCommandInteraction} from 'discord.js'
 import { getMessageEmbedFromVC } from './embeds'
 import { agent } from './agent'
 import { discordUserIdToUrl } from './utils'
@@ -17,11 +17,14 @@ export const kudosCommand = new SlashCommandBuilder()
   )
 
 
-export async function kudos(interaction: Interaction) {
+export async function kudos(interaction: ChatInputCommandInteraction) {
 
     if (!interaction.isChatInputCommand()) return
     if (!interaction.inGuild()) return
     if (interaction.commandName !== kudosCommand.name) return
+
+    let message = await interaction.reply({content:'Working...', fetchReply: true});
+
   
     const { user, client, channelId, guildId } = interaction
     const channel = (await client.channels.fetch(channelId)) as TextChannel
@@ -61,7 +64,7 @@ export async function kudos(interaction: Interaction) {
       save: true,
       proofFormat: 'jwt',
       credential: {
-        id: interaction.id,
+        id: message.id,
         credentialSubject,
         issuer: { id: issuer.did },
         issuanceDate: new Date().toISOString(),

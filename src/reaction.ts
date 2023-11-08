@@ -14,7 +14,7 @@ export const createReactionCredential = async (reaction: Discord.MessageReaction
   if (credentials.length < 0) return
 
   const credentialSubject = {
-    hash: reaction.message.id,
+    hash: credentials[0].hash,
     emoji: reaction.emoji.name
   }
 
