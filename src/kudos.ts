@@ -92,6 +92,7 @@ export async function kudos(interaction: Interaction) {
     }
 
     interaction.editReply({
+      content: ' ',
       embeds: [publicEmbed],
     })
   }
