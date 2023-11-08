@@ -20,8 +20,9 @@ const client = new Client({
     GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildVoiceStates,
     GatewayIntentBits.GuildMessageReactions,
+    GatewayIntentBits.GuildMessages,
   ],
-  partials: [Partials.Reaction],
+  partials: [Partials.Reaction, Partials.Message],
 })
 
 client.on('interactionCreate', exportRoles)
