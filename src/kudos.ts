@@ -1,7 +1,8 @@
 import { SlashCommandBuilder, Interaction, Guild, TextChannel, AttachmentBuilder} from 'discord.js'
 import { getMessageEmbedFromVC } from './embeds'
 import { agent } from './agent'
-import { discordUserIdToUrl, updateProfileCredentials } from './utils'
+import { discordUserIdToUrl } from './utils'
+import { getIdentity } from './profile'
 
 if (!process.env.DISCORD_BOT_DID_ALIAS) throw Error('DISCORD_BOT_DID_ALIAS is missing')
 
@@ -38,19 +39,8 @@ export async function kudos(interaction: Interaction) {
       return 
     }
 
-    const issuer = await agent.didManagerGetOrCreate({
-      alias: (process.env.DISCORD_BOT_DID_ALIAS as string) + ':discord:' + user.id,
-      provider: 'did:web'
-    })
-
-    await updateProfileCredentials(issuer.did, user.username, user.avatarURL({ extension: 'png' }) || '')
-
-    const subject = await agent.didManagerGetOrCreate({
-      alias: (process.env.DISCORD_BOT_DID_ALIAS as string) + ':discord:' + recipient.id,
-      provider: 'did:web'
-    })
-
-    await updateProfileCredentials(subject.did, recipient.username, recipient.avatarURL({ extension: 'png' }) || '')
+    const issuer = await getIdentity(user)
+    const subject = await getIdentity(recipient)
 
     const credentialSubject = {
       id: subject.did,

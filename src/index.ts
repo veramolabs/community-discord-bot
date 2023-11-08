@@ -1,7 +1,7 @@
 import { config } from 'dotenv'
 config()
 require('cross-fetch/polyfill')
-import { Client, GatewayIntentBits } from 'discord.js'
+import { Client, GatewayIntentBits, User, MessageReaction } from 'discord.js'
 import express from 'express'
 
 import { registerCommands } from './register-commands'
@@ -10,13 +10,16 @@ import { exportRoles } from './export-roles'
 import { kudos } from './kudos'
 import { credentials } from './credentials'
 import { attendance } from './attendance'
+import { getIdentity } from './profile'
+import { createReactionCredential } from './reaction'
 
 // https://stackoverflow.com/a/67799671/10571155
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMembers,
-    GatewayIntentBits.GuildVoiceStates
+    GatewayIntentBits.GuildVoiceStates,
+    GatewayIntentBits.GuildMessageReactions,
   ],
 })
 
@@ -24,6 +27,21 @@ client.on('interactionCreate', exportRoles)
 client.on('interactionCreate', kudos)
 client.on('interactionCreate', credentials)
 client.on('interactionCreate', attendance)
+
+client.on('messageReactionAdd', async (reaction, user) => {
+	if (reaction.partial) {
+		try {
+			await reaction.fetch()
+		} catch (error) {
+			console.error('Something went wrong when fetching the message: ', error)
+			return
+		}
+  }
+
+  const reactionAuthor = await getIdentity(user as User)
+  await createReactionCredential(reaction as MessageReaction, reactionAuthor)
+})
+
 
 client.once('ready', async () => {
   console.log('Ready!')

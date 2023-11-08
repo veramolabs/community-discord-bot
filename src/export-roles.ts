@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders'
 import { Interaction, AttachmentBuilder, GuildMemberRoleManager } from 'discord.js'
 import { agent } from './agent'
-import { discordUserIdToUrl, updateProfileCredentials } from './utils'
+import { getIdentity } from './profile'
 
 export const exportRolesCommand = new SlashCommandBuilder()
   .setName('export-roles')
@@ -17,12 +17,7 @@ export async function exportRoles(interaction: Interaction) {
     provider: 'did:web'
   })
 
-  const subject = await agent.didManagerGetOrCreate({
-    alias: (process.env.DISCORD_BOT_DID_ALIAS as string) + ':discord:' + interaction.member.user.id,
-    provider: 'did:web'
-  })
-
-  await updateProfileCredentials(subject.did, interaction.member.user.username, interaction.member.user.avatar || '')
+  const subject = await getIdentity(interaction.member.user as any)
 
   const roles = interaction.member.roles as GuildMemberRoleManager
 
