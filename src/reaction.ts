@@ -6,10 +6,12 @@ export const createReactionCredential = async (reaction: Discord.MessageReaction
   if (!reaction.message.author) return
   const credentials = await agent.dataStoreORMGetVerifiableCredentials({
     where: [
-      { column: 'type', value: ['VerifiableCredential,Reaction']},
+      { column: 'type', value: ['VerifiableCredential,Kudos']},
       { column: 'id', value: [reaction.message.id]},
     ]
   })
+
+  console.log('kudos credential', JSON.stringify(credentials, null, 2)) 
 
   if (credentials.length < 0) return
 

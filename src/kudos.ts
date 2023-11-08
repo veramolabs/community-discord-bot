@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, Interaction, Guild, TextChannel, AttachmentBuilder, ChatInputCommandInteraction} from 'discord.js'
+import { SlashCommandBuilder, Interaction, Guild, TextChannel, AttachmentBuilder } from 'discord.js'
 import { getMessageEmbedFromVC } from './embeds'
 import { agent } from './agent'
 import { discordUserIdToUrl } from './utils'
@@ -17,7 +17,7 @@ export const kudosCommand = new SlashCommandBuilder()
   )
 
 
-export async function kudos(interaction: ChatInputCommandInteraction) {
+export async function kudos(interaction: Interaction) {
 
     if (!interaction.isChatInputCommand()) return
     if (!interaction.inGuild()) return
