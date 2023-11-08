@@ -22,17 +22,20 @@ export async function credentials(interaction: Interaction) {
   const recipient = interaction.options.getUser('member')
   const memberId = recipient ? recipient.id : user.id
 
-  const holder = discordUserIdToUrl(memberId)
+  const subject = await agent.didManagerGetOrCreate({
+    alias: (process.env.DISCORD_BOT_DID_ALIAS as string) + ':discord:' + memberId,
+    provider: 'did:web'
+  })
 
   const credentials = await agent.dataStoreORMGetVerifiableCredentials({
-    where: [{ column: 'subject', value: [holder] }],
+    where: [{ column: 'subject', value: [subject.did] }],
     order: [ { column: 'issuanceDate', direction: 'DESC' }]
   })
 
   const embeds = credentials.slice(0,5).map(({ verifiableCredential }) =>
     getMessageEmbedFromVC(verifiableCredential, true),
   )
-  const profile = hyperlink('Profile', 'https://' + process.env.DISCORD_BOT_DID_ALIAS + '/identifier/' + encodeURIComponent(holder))
+  const profile = hyperlink('Profile', 'https://' + process.env.DISCORD_BOT_DID_ALIAS + '/identifier/' + encodeURIComponent(subject.did))
 
   if (embeds.length > 0) {
     await interaction.reply({

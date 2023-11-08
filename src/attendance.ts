@@ -1,7 +1,7 @@
 import { SlashCommandBuilder, Channel, Interaction, Guild, PermissionFlagsBits, ChannelType, VoiceChannel } from 'discord.js'
 import { getMessageEmbedFromVC } from './embeds'
 import { agent } from './agent'
-import { discordUserIdToUrl } from './utils'
+import { discordUserIdToUrl, updateProfileCredentials } from './utils'
 
 if (!process.env.DISCORD_BOT_DID_ALIAS) throw Error('DISCORD_BOT_DID_ALIAS is missing')
 
@@ -47,8 +47,15 @@ export async function attendance(interaction: Interaction) {
       provider: 'did:web',
     })
 
+    const subject = await agent.didManagerGetOrCreate({
+      alias: (process.env.DISCORD_BOT_DID_ALIAS as string) + ':discord:' + member.user.id,
+      provider: 'did:web'
+    })
+
+    await updateProfileCredentials(subject.did, member.user.username, member.user.avatarURL({ extension: 'png' }) || '')
+
     const credentialSubject = {
-      id: discordUserIdToUrl(member.user.id),
+      id: subject.did,
       name: member.user.username,
       avatar: member.user.avatarURL({ extension: 'png' }),
       channelId: channel.id,
