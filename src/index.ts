@@ -1,7 +1,7 @@
 import { config } from 'dotenv'
 config()
 require('cross-fetch/polyfill')
-import { Client, GatewayIntentBits, User, MessageReaction } from 'discord.js'
+import { Client, GatewayIntentBits, User, MessageReaction, Partials } from 'discord.js'
 import express from 'express'
 
 import { registerCommands } from './register-commands'
@@ -21,6 +21,7 @@ const client = new Client({
     GatewayIntentBits.GuildVoiceStates,
     GatewayIntentBits.GuildMessageReactions,
   ],
+  partials: [Partials.Reaction],
 })
 
 client.on('interactionCreate', exportRoles)
@@ -29,6 +30,7 @@ client.on('interactionCreate', credentials)
 client.on('interactionCreate', attendance)
 
 client.on('messageReactionAdd', async (reaction, user) => {
+  console.log('reaction', JSON.stringify(reaction, null, 2))
 	if (reaction.partial) {
 		try {
 			await reaction.fetch()
@@ -37,7 +39,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
 			return
 		}
   }
-  console.log('reaction', JSON.stringify(reaction, null, 2))
+  console.log('reaction2', JSON.stringify(reaction, null, 2))
 
   const reactionAuthor = await getIdentity(user as User)
   await createReactionCredential(reaction as MessageReaction, reactionAuthor)
